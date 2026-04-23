@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>ng · a site, slowly arriving</title>
+  <link rel="stylesheet" href="colors_and_type.css">
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      min-height: 100vh;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      /* Explicit light mode */
+      --bg: var(--paper);
+      --bg-sunk: var(--paper-sunk);
+      --edge: var(--paper-edge);
+      --fg: var(--ink);
+      --fg-2: var(--ink-soft);
+      --fg-muted: var(--muted);
+      --fg-quiet: var(--muted-soft);
+      --accent: var(--jwst);
+      --accent-hover: var(--jwst-hover);
+
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--font-body);
+      min-height: 100vh;
+
+      /* Center the card in the viewport */
+      display: grid;
+      place-items: center;
+      padding: 48px 24px 80px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 520px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* -- Monogram ------------------------------------------------- */
+    .mg {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-weight: 380;
+      font-size: 120px;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      /* Display opsz, soft terminals, WONK on so the g has character */
+      font-variation-settings: "opsz" 144, "SOFT" 60, "WONK" 1;
+      color: var(--fg);
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0;
+    }
+
+    /* The period — accent color. Static by default; animates only when
+     the user has NOT requested reduced motion. */
+    .mg .dot {
+      color: var(--accent);
+      margin-left: 0.02em;
+      /* The dot sits a touch lower than the glyph baseline for optical balance */
+      transform: translateY(-0.02em);
+    }
+
+    @keyframes breathe {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.45;
+      }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .mg .dot {
+        animation: breathe 3s ease-in-out infinite;
+      }
+    }
+
+    /* -- Display line --------------------------------------------- */
+    .display {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-weight: 340;
+      font-size: 48px;
+      line-height: 1.15;
+      letter-spacing: -0.015em;
+      font-variation-settings: "opsz" 72, "SOFT" 60, "WONK" 1;
+      color: var(--fg);
+      margin: 72px 0 0;
+      /* sp-8 below monogram */
+      text-wrap: balance;
+    }
+
+    /* -- Body paragraph ------------------------------------------- */
+    .body-copy {
+      font-family: var(--font-body);
+      font-size: 17.5px;
+      line-height: 1.55;
+      color: var(--fg-muted);
+      max-width: 52ch;
+      margin: 40px auto 0;
+      /* sp-6 */
+      text-wrap: pretty;
+    }
+
+    .body-copy em.name {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.02em;
+      font-variation-settings: "opsz" 24, "SOFT" 60;
+      color: var(--fg);
+      font-weight: 420;
+    }
+
+    /* -- Hairline ------------------------------------------------- */
+    .rule {
+      border: 0;
+      border-top: 1px solid var(--edge);
+      width: 100%;
+      max-width: 360px;
+      margin: 56px auto;
+      /* sp-7 top and bottom */
+    }
+
+    /* -- Mono links row ------------------------------------------- */
+    .links {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--fg-muted);
+      display: inline-flex;
+      align-items: baseline;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .links a {
+      color: var(--fg-muted);
+      text-decoration: none;
+      transition: color 140ms var(--ease-out);
+      display: inline-flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+
+    .links a:hover,
+    .links a.hover {
+      /* demo hover state */
+      color: var(--accent);
+    }
+
+    .links .sep {
+      color: var(--fg-quiet);
+      user-select: none;
+    }
+
+    .links .arr {
+      font-size: 11px;
+      transform: translateY(-1px);
+      letter-spacing: 0;
+    }
+
+    /* -- Bottom mark (fixed) -------------------------------------- */
+    .bottom {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 24px;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--fg-quiet);
+      pointer-events: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="card">
+
+    <div class="mg" aria-label="ng — a site, slowly arriving">
+      <span>ng</span><span class="dot" aria-hidden="true">.</span>
+    </div>
+
+    <h1 class="display">A site, slowly arriving.</h1>
+
+    <p class="body-copy">
+      <em class="name">Nikhil Garuda</em> — astronomer, first-year PhD at UT Austin.
+    </p>
+
+    <hr class="rule">
+
+    <nav class="links" aria-label="contact">
+      <a href="https://github.com/Nikhil0504">GitHub <span class="arr">↗</span></a>
+      <span class="sep">·</span>
+      <a
+        href="https://ui.adsabs.harvard.edu/search/fq=%7B!type%3Daqp%20v%3D%24fq_database%7D&fq_database=(database%3Aastronomy%20OR%20database%3Aphysics)&q=author%3A%22Garuda%2C%20N.%22&sort=date%20desc%2C%20bibcode%20desc&p_=0">NASA
+        ADS <span class="arr">↗</span></a>
+      <span class="sep">·</span>
+      <a href="mailto:garuda@utexas.edu">Email</a>
+    </nav>
+
+  </main>
+
+  <div class="bottom">Austin, TX · 2026</div>
+
+</body>
+
+</html>
